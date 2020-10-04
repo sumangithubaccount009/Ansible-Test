@@ -1,0 +1,10 @@
+- hosts: localhost
+  gather_facts: true 
+  connection: local
+  tasks:
+   - name : test bash 
+     shell: >
+         echo abv   
+     register: LS
+   - debug: 
+       msg: "{{LS.stdout_lines}}"        
