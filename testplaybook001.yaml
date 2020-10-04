@@ -1,0 +1,29 @@
+- hosts: localhost
+  gather_facts: true 
+  connection: local
+  tasks:
+  - name: check resource group is present 
+    shell: > 
+       az group list --query "[].name" --output tsv
+    register: otp
+  - debug: 
+     msg: "{{otp.stdout_lines}}"
+#  - name: create key vault 
+#    shell: >
+#          az keyvault create --name "testvaultsuman001" --resource-group "rg-test-ansible" --location eastus 
+#          --query "[].name" --output tsv
+#    register: otpt
+#  - debug: 
+#     msg: "{{otpt.stdout}}"      
+#  - name: add secret to key vault 
+#   shell: >
+#          az keyvault secret set --vault-name "testvaultsuman001" --name "{{ item.name }}" --value "{{ item.password }}"
+#    loop: 
+#      - { name: 'test', password: 'hdbsjhcbsdjcb' }
+#      - { name: 'test1', password: 'hdbsjhdscsdjcb' }           
+  - name: retreve key details 
+    shell: >
+        echo $(az keyvault secret list --vault-name testvaultsuman001   --query [].{Name:name} --output tsv)
+    register: test
+  - debug:
+     msg: "bla test{{test.stdout_lines}}"
