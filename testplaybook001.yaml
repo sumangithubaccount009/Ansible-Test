@@ -26,4 +26,4 @@
         echo $(az keyvault secret list --vault-name testvaultsuman001   --query [].{Name:name} --output tsv)
     register: test
   - debug:
-     msg: "bla test{{test.stdout_lines}}"
+     msg: "bla test 123 {{test.stdout_lines}}"
